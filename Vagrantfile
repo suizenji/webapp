@@ -65,6 +65,9 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     dnf -y upgrade
 #    dnf -y install
+
     ( cd /vagrant/installer && sh oracle.sh; )
+
+    ( cd /vagrant/installer && sh php.sh; )
   SHELL
 end
