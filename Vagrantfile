@@ -64,7 +64,7 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     dnf -y upgrade
-#    dnf -y install
+    dnf -y install git
 
     ( cd /vagrant/installer && sh oracle.sh; )
 
