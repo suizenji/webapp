@@ -69,5 +69,6 @@ Vagrant.configure("2") do |config|
     ( cd /vagrant/installer && sh oracle.sh; )
 
     ( cd /vagrant/installer && sh php.sh; )
+    cd /vagrant/app && su vagrant -c /usr/local/bin/composer install
   SHELL
 end
