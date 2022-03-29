@@ -1,3 +1,4 @@
+# coding: utf-8
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -7,6 +8,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.network "private_network", ip: "192.168.56.78"
   # config.vm.synced_folder "../data", "/vagrant_data"
+#  config.vm.synced_folder "./app", "/app", type: "rsync"
 
   # config.vm.provider "virtualbox" do |vb|
   #   vb.memory = "1024"
@@ -16,10 +18,11 @@ Vagrant.configure("2") do |config|
     dnf upgrade -y
     dnf install -y git
 
-    ( cd /vagrant/installer && sh nginx.sh; )
-
     ( cd /vagrant/installer && sh php.sh; )
-    cd /vagrant/app && su vagrant -c /usr/local/bin/composer install
+    cd /vagrant/app && su vagrant -c '/usr/local/bin/composer install'
+    chmod -R 777 /vagrant/app/var
+
+    ( cd /vagrant/installer && sh nginx.sh; )
 
     ( cd /vagrant/installer && sh oracle.sh; )
   SHELL
