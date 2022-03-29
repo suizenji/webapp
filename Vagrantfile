@@ -13,12 +13,14 @@ Vagrant.configure("2") do |config|
   # end
 
   config.vm.provision "shell", inline: <<-SHELL
-    dnf -y upgrade
-    dnf -y install git
+    dnf upgrade -y
+    dnf install -y git
 
-    ( cd /vagrant/installer && sh oracle.sh; )
+    dnf install -y nginx
 
     ( cd /vagrant/installer && sh php.sh; )
     cd /vagrant/app && su vagrant -c /usr/local/bin/composer install
+
+    ( cd /vagrant/installer && sh oracle.sh; )
   SHELL
 end
