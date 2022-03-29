@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
     dnf upgrade -y
     dnf install -y git
 
-    dnf install -y nginx
+    ( cd /vagrant/installer && sh nginx.sh; )
 
     ( cd /vagrant/installer && sh php.sh; )
     cd /vagrant/app && su vagrant -c /usr/local/bin/composer install
