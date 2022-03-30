@@ -14,5 +14,3 @@ test -e ${SSL_PKI} || {
 }
 
 systemctl restart nginx
-
-[[ "$(getenforce)" == "Disabled" ]] || { sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config; setenforce 0; }

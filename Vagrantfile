@@ -23,6 +23,8 @@ Vagrant.configure("2") do |config|
     chmod -R 777 /vagrant/app/var
 
     ( cd /vagrant/installer && sh nginx.sh; )
+    [[ "$(getenforce)" == "Disabled" ]] || { sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config; setenforce 0; }
+    systemctl enable nginx
 
     ( cd /vagrant/installer && sh oracle.sh; )
   SHELL
