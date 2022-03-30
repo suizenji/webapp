@@ -18,3 +18,10 @@ $ composer require webapp # docker:no
 ```
 VBoxManage: error: Context: "EnableStaticIPConfig(Bstr(pszIp).raw(), Bstr(pszNetmask).raw())" at line 242 of file VBoxManageHostonly.cpp
 ```
+
+## link
+[Oracle Linux 8でWordPressサーバを立てる](https://blog.osakana.net/archives/11232)
+[php-oci8とPDO-OCIについて](https://teratail.com/questions/65932)
+
+## TODO
+selinux
