@@ -27,5 +27,7 @@ Vagrant.configure("2") do |config|
     systemctl enable nginx
 
     ( cd /vagrant/installer && sh oracle.sh; )
+
+    ( cd /vagrant/installer && sh app.sh; )
   SHELL
 end
