@@ -40,7 +40,8 @@ PHP Warning:  PHP Startup: Unable to load dynamic library 'pdo_oci' (tried: /usr
 
 ## link
 [Oracle Linux 8でWordPressサーバを立てる](https://blog.osakana.net/archives/11232)
+
 [php-oci8とPDO-OCIについて](https://teratail.com/questions/65932)
 
 ## TODO
-selinux
+selinux,oracle dba
