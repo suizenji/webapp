@@ -19,7 +19,6 @@ Vagrant.configure("2") do |config|
     dnf install -y git
 
     ( cd /vagrant/installer && sh php.sh; )
-    ( cd /vagrant/installer && sh php-oci.sh; )
 
     ( cd /vagrant/installer && sh nginx.sh; )
     systemctl enable nginx
