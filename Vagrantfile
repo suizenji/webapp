@@ -22,19 +22,24 @@ Vagrant.configure("2") do |config|
     ( cd /vagrant/installer && sh php-oci.sh; )
 
     ( cd /vagrant/installer && sh nginx.sh; )
+    systemctl enable nginx
+    systemctl restart nginx
 
     ( cd /vagrant/installer && sh oracle.sh; )
+    systemctl daemon-reload
+    systemctl enable oracle-xe-21c
+    systemctl restart oracle-xe-21c
 
     # for nginx
     [[ "$(getenforce)" == "Disabled" ]] || { sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config; setenforce 0; }
 
     # setup app
-    cd /vagrant/app && su vagrant -c '/usr/local/bin/composer install'
-    chmod -R 777 /vagrant/app/var
+    ( cd /vagrant/installer && sqlplus system/Passw0rd@localhost:1521/XEPDB1 @oracle-create-user.sql; )
 
-    # https://docs.oracle.com/cd/F39414_01/xeinl/starting-and-stopping-oracle-database.html
-    systemctl daemon-reload
-    systemctl enable nginx oracle-xe-21c
-    systemctl restart php-fpm nginx oracle-xe-21c
+    (
+      cd /vagrant/app
+      su vagrant -c '/usr/local/bin/composer install'
+      chmod -R 777 /vagrant/app/var
+    )
   SHELL
 end
