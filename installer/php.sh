@@ -62,3 +62,5 @@ test -e $ORA_ICB_ZIP || {
 test -e ${ORA_ICB_PATH} || unzip $ORA_ICB_ZIP -d ${ORA_ICB_DIST}
 echo ${ORA_ICB_PATH} > /etc/ld.so.conf.d/oracle.conf
 ldconfig
+
+systemctl restart php-fpm

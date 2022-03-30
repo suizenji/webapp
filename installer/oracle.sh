@@ -39,3 +39,7 @@ insert() {
 
 insert /root/.bashrc
 insert /home/vagrant/.bashrc
+
+systemctl daemon-reload
+systemctl enable oracle-xe-21c
+systemctl restart oracle-xe-21c
