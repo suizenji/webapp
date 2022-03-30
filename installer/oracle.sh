@@ -8,7 +8,10 @@ ORA_RPM="oracle-database-${ORA_VER}-1.0-1.ol8.x86_64.rpm"
 ORA_URL="https://download.oracle.com/otn-pub/otn_software/db-express/${ORA_RPM}"
 ORA_PASS=Passw0rd
 
-test -e "${ORA_RPM}" || wget "${ORA_URL}"
+test -e "${ORA_RPM}" || {
+    echo "download ${ORA_URL}"
+    wget --quiet "${ORA_URL}"
+}
 dnf -y install "${ORA_RPM}"
 {
     echo "${ORA_PASS}"

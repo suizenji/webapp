@@ -19,15 +19,20 @@ Vagrant.configure("2") do |config|
     dnf install -y git
 
     ( cd /vagrant/installer && sh php.sh; )
-    cd /vagrant/app && su vagrant -c '/usr/local/bin/composer install'
-    chmod -R 777 /vagrant/app/var
+    ( cd /vagrant/installer && sh php-oci.sh; )
 
     ( cd /vagrant/installer && sh nginx.sh; )
-    [[ "$(getenforce)" == "Disabled" ]] || { sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config; setenforce 0; }
-    systemctl enable nginx
 
     ( cd /vagrant/installer && sh oracle.sh; )
 
-    ( cd /vagrant/installer && sh app.sh; )
+    # for nginx
+    [[ "$(getenforce)" == "Disabled" ]] || { sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config; setenforce 0; }
+
+    # setup app
+    cd /vagrant/app && su vagrant -c '/usr/local/bin/composer install'
+    chmod -R 777 /vagrant/app/var
+
+    systemctl restart php-fpm nginx
+    systemctl enable nginx
   SHELL
 end
