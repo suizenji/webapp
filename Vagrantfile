@@ -32,7 +32,9 @@ Vagrant.configure("2") do |config|
     cd /vagrant/app && su vagrant -c '/usr/local/bin/composer install'
     chmod -R 777 /vagrant/app/var
 
-    systemctl restart php-fpm nginx
-    systemctl enable nginx
+    # https://docs.oracle.com/cd/F39414_01/xeinl/starting-and-stopping-oracle-database.html
+    systemctl daemon-reload
+    systemctl enable nginx oracle-xe-21c
+    systemctl restart php-fpm nginx oracle-xe-21c
   SHELL
 end
