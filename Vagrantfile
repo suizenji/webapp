@@ -18,22 +18,25 @@ Vagrant.configure("2") do |config|
     dnf upgrade -y
     dnf install -y git
 
-    ( cd /vagrant/installer && sh php.sh; )
-    ( cd /vagrant/installer && sh nginx.sh; )
-    ( cd /vagrant/installer && sh oracle.sh; )
-
-    # for nginx
-    [[ "$(getenforce)" == "Disabled" ]] || { sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config; setenforce 0; }
-
-    # setup app
     (
-      cd /vagrant/app
-      su vagrant -c '/usr/local/bin/composer install'
+      cd /vagrant/installer && sh php.sh
+
+      cd /vagrant/app && su vagrant -c '/usr/local/bin/composer install'
       chmod -R 777 /vagrant/app/var
     )
 
     (
-      cd /vagrant/installer
+      cd /vagrant/installer && sh nginx.sh
+
+      [[ "$(getenforce)" == "Disabled" ]] || {
+        sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
+        setenforce 0
+      }
+    )
+
+    (
+      cd /vagrant/installer && sh oracle.sh
+      which sqlplus 2>/dev/null || source ~/.bash_profile
       sqlplus system/Passw0rd@localhost:1521/XEPDB1 @oracle-create-user.sql
     )
   SHELL

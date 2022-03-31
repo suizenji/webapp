@@ -28,7 +28,9 @@ export ORACLE_HOME=${ORACLE_BASE}/product/21c/dbhomeXE
 export ORACLE_SID=XE
 export ORAENV_ASK=NO
 
-PATH="${ORACLE_HOME}/bin:${PATH}"
+[[ "$PATH" =~ "$ORACLE_HOME" ]] || {
+  export PATH="${ORACLE_HOME}/bin:${PATH}"
+}
 #########################################
 EOF
 }
@@ -37,8 +39,8 @@ insert() {
     grep 'writed by my oracle installer' "$1" || doc >> "$1"
 }
 
-insert /root/.bashrc
-insert /home/vagrant/.bashrc
+insert /root/.bash_profile
+insert /home/vagrant/.bash_profile
 
 systemctl daemon-reload
 systemctl enable oracle-xe-21c
