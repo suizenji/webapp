@@ -44,4 +44,4 @@ PHP Warning:  PHP Startup: Unable to load dynamic library 'pdo_oci' (tried: /usr
 [php-oci8とPDO-OCIについて](https://teratail.com/questions/65932)
 
 ## TODO
-selinux,oracle dba
+selinux, oracle dba, git, lint and etc
