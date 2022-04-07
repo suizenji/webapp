@@ -1,6 +1,16 @@
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
+# ORA-12545: Connect failed because target host or object does not exist
+#        url: 'oci8://symfony/symfony@localhost:1521/XEPDB1'
+        driver: oci8
+        dbname: XE
+        host: localhost
+        port: 1521
+        user: symfony
+        password: symfony
+        servicename: XEPDB1
+        service: true
+        charset: UTF8
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
