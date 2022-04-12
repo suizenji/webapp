@@ -9,6 +9,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: "192.168.56.78"
   # config.vm.synced_folder "../data", "/vagrant_data"
 #  config.vm.synced_folder "./app", "/app", type: "rsync"
+  config.vm.synced_folder "./", "/vagrant", mount_options: ['dmode=777','fmode=777']
 
   # config.vm.provider "virtualbox" do |vb|
   #   vb.memory = "1024"
@@ -23,7 +24,7 @@ Vagrant.configure("2") do |config|
 
       cd /vagrant/app && su vagrant -c '/usr/local/bin/composer install'
       # https://symfony.com/doc/current/setup/file_permissions.html
-      chmod -R 777 /vagrant/app/var
+      # chmod -R 777 /vagrant/app/var
     )
 
     (
