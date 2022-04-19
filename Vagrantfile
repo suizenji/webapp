@@ -17,7 +17,13 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     dnf upgrade -y
-    dnf install -y git
+    dnf install -y git unzip
+
+    (
+      cd /vagrant/installer && sh oracle.sh
+      which sqlplus 2>/dev/null || source ~/.bash_profile
+      sqlplus system/Passw0rd@localhost:1521/XEPDB1 @oracle-create-user.sql
+    )
 
     (
       cd /vagrant/installer && sh php.sh
@@ -34,12 +40,6 @@ Vagrant.configure("2") do |config|
         sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
         setenforce 0
       }
-    )
-
-    (
-      cd /vagrant/installer && sh oracle.sh
-      which sqlplus 2>/dev/null || source ~/.bash_profile
-      sqlplus system/Passw0rd@localhost:1521/XEPDB1 @oracle-create-user.sql
     )
   SHELL
 end
