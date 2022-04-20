@@ -1,0 +1,24 @@
+resources:
+- name: repo
+  type: git
+  source:
+    uri: https://github.com/suizenji/webapp.git
+    branch: feature/concourse
+
+jobs:
+- name: hello-world-job
+  plan:
+  - get: repo
+    trigger: true
+  - task: hello-world-task
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: busybox
+      inputs: # add the get step as an input to this task
+      - name: repo
+      run: # read the file from the get step
+        path: cat
+        args: ["repo/README.md"]
