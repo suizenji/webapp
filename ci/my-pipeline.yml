@@ -3,8 +3,9 @@ resources:
   type: git
   source:
     uri: https://github.com/suizenji/webapp.git
-    branch: feature/concourse
+    branch: main
 
+# https://concourse-ci.org/php-example.html
 jobs:
 - name: test
   plan:
@@ -28,6 +29,7 @@ jobs:
             composer install
             bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
+# https://qiita.com/Esfahan/items/81eb53686506ab6bd898
 - name: hello
   plan:
   - get: repo
@@ -36,6 +38,7 @@ jobs:
   - task: world
     file: repo/ci/task-hello.yml
 
+# https://concourse-ci.org/manual-trigger-example.html
 - name: triggered-second
   public: true
   plan:
