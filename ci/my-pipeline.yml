@@ -6,19 +6,24 @@ resources:
     branch: feature/concourse
 
 jobs:
-- name: hello-world-job
+- name: test
   plan:
   - get: repo
     trigger: true
-  - task: hello-world-task
+  - task: php-unit
     config:
       platform: linux
       image_resource:
         type: registry-image
         source:
-          repository: busybox
+          repository: composer
       inputs: # add the get step as an input to this task
       - name: repo
       run: # read the file from the get step
-        path: cat
-        args: ["repo/README.md"]
+        path: /bin/sh
+        args:
+          - -c
+          - |
+            cd repo/app
+            composer install
+            bin/phpunit --coverage-text --coverage-clover=coverage.clover

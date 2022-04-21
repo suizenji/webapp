@@ -25,10 +25,10 @@ VBoxManage: error: Context: "EnableStaticIPConfig(Bstr(pszIp).raw(), Bstr(pszNet
 ```
 $ # https://concourse-ci.org/getting-started.html
 $ # https://concoursetutorial-ja.site.lkj.io/
-$ fly --target=tutorial login --concourse-url=http://127.0.0.1:8080 --username=test --password=test
-$ fly -t tutorial set-pipeline -p hello-world -c hello-world.yml
-$ fly -t tutorial unpause-pipeline -p hello-world
-$ fly -t tutorial trigger-job --job hello-world/hello-world-job --watch
+$ fly -t webapp login --concourse-url=http://127.0.0.1:8080 --username=test --password=test
+$ fly -t webapp set-pipeline -p my-pl -c ci/my-pipeline.yml
+$ fly -t webapp unpause-pipeline -p my-pl
+$ fly -t webapp trigger-job --job my-pl/test --watch
 ```
 
 ## oci8
