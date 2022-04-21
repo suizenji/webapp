@@ -27,3 +27,27 @@ jobs:
             cd repo/app
             composer install
             bin/phpunit --coverage-text --coverage-clover=coverage.clover
+
+- name: hello
+  plan:
+  - get: repo
+    passed: [test]
+    trigger: true
+  - task: world
+    file: repo/ci/task-hello.yml
+
+- name: triggered-second
+  public: true
+  plan:
+    - get: repo
+      passed: [test]
+      trigger: true
+    - task: simple-task
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source: { repository: busybox }
+        run:
+          path: echo
+          args: ["Hello, world!"]
