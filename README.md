@@ -11,6 +11,8 @@ $ vagrant init oraclelinux/8 https://oracle.github.io/vagrant-projects/boxes/ora
 $ composer create-project symfony/skeleton app
 $ cd app
 $ composer require webapp # docker:no
+$ # https://symfony.com/doc/current/the-fast-track/ja/17-tests.html
+$ symfony composer req phpunit --dev
 ```
 
 ## vagrant error
