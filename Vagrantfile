@@ -40,6 +40,8 @@ Vagrant.configure("2") do |config|
       cd /vagrant/app && su vagrant -c '/usr/local/bin/composer install'
       # https://symfony.com/doc/current/setup/file_permissions.html
       # chmod -R 777 /vagrant/app/var
+
+      cd /vagrant/app && su vagrant -c '/usr/bin/yarn'
     )
   SHELL
 end
