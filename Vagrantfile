@@ -26,20 +26,20 @@ Vagrant.configure("2") do |config|
     )
 
     (
-      cd /vagrant/installer && sh php.sh
-
-      cd /vagrant/app && su vagrant -c '/usr/local/bin/composer install'
-      # https://symfony.com/doc/current/setup/file_permissions.html
-      # chmod -R 777 /vagrant/app/var
-    )
-
-    (
       cd /vagrant/installer && sh nginx.sh
 
       [[ "$(getenforce)" == "Disabled" ]] || {
         sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
         setenforce 0
       }
+    )
+
+    (
+      cd /vagrant/installer && sh app.sh
+
+      cd /vagrant/app && su vagrant -c '/usr/local/bin/composer install'
+      # https://symfony.com/doc/current/setup/file_permissions.html
+      # chmod -R 777 /vagrant/app/var
     )
   SHELL
 end
