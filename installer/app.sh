@@ -45,7 +45,7 @@ gpgcheck=0' | sudo tee /etc/yum.repos.d/symfony-cli.repo
 
 dnf -y install symfony-cli
 
-# oci8
+### install oci8
 # https://blog.remirepo.net/post/2020/05/18/Installation-of-Oracle-extensions-for-PHP
 # Using the package manager causes conflicts with libraries required for Oracle DB.
 ORA_ICB_ZIP=instantclient-basic-linux.x64-21.5.0.0.0dbru.zip
@@ -64,3 +64,11 @@ echo ${ORA_ICB_PATH} > /etc/ld.so.conf.d/oracle.conf
 ldconfig
 
 systemctl restart php-fpm
+
+### install yarn
+# https://github.com/nodesource/distributions/blob/master/README.md#rpm
+curl -fsSL https://rpm.nodesource.com/setup_18.x | bash -
+
+# https://classic.yarnpkg.com/en/docs/install#centos-stable
+curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
+dnf install -y yarn
