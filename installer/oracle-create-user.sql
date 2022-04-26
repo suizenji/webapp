@@ -17,6 +17,8 @@ https://docs.oracle.com/cd/F39414_01/xeinl/connecting-oracle-database-xeinl.html
 
 ALTER SESSION SET CONTAINER = XEPDB1;
 
+DROP USER "SYMFONY";
+
 CREATE USER symfony
 IDENTIFIED BY symfony
 DEFAULT TABLESPACE users
@@ -24,6 +26,7 @@ TEMPORARY TABLESPACE temp
 ;
 
 GRANT
+DBA, /* FIXME appropriate role (create DB) */
 CREATE SESSION,
 CREATE CLUSTER,
 CREATE INDEXTYPE,
