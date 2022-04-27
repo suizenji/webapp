@@ -50,6 +50,12 @@ PHP Warning:  PHP Startup: Unable to load dynamic library 'pdo_oci' (tried: /usr
         /lib64/ld-linux-x86-64.so.2 (0x00007fd6cf08b000)
 ```
 
+## dev
+```
+https://symfony.com/doc/current/the-fast-track/ja/22-encore.html
+$ symfony run -d yarn dev --watch
+```
+
 ## link
 [Oracle Linux 8でWordPressサーバを立てる](https://blog.osakana.net/archives/11232)
 
