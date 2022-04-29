@@ -54,6 +54,10 @@ PHP Warning:  PHP Startup: Unable to load dynamic library 'pdo_oci' (tried: /usr
 ```
 https://symfony.com/doc/current/the-fast-track/ja/22-encore.html
 $ symfony run -d yarn dev --watch
+
+https://symfony.com/doc/current/reference/configuration/doctrine.html
+$ ./bin/console config:dump-reference doctrine
+$ ./bin/console debug:config doctrine
 ```
 
 ## link
