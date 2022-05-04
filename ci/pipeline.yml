@@ -1,5 +1,5 @@
 resources:
-- name: repo
+- name: repo-main
   type: git
   source:
     uri: https://github.com/suizenji/webapp.git
@@ -10,6 +10,7 @@ jobs:
 - name: test
   plan:
   - get: repo
+    resource: repo-main
     trigger: true
   - task: php-unit
     config:
@@ -20,6 +21,8 @@ jobs:
           repository: composer
       inputs: # add the get step as an input to this task
       - name: repo
+      caches:
+      - path: repo/app/vendor
       run: # read the file from the get step
         path: /bin/sh
         args:
@@ -33,6 +36,7 @@ jobs:
 - name: hello
   plan:
   - get: repo
+    resource: repo-main
     passed: [test]
     trigger: true
   - task: world
@@ -42,15 +46,16 @@ jobs:
 - name: triggered-second
   public: true
   plan:
-    - get: repo
-      passed: [test]
-      trigger: true
-    - task: simple-task
-      config:
-        platform: linux
-        image_resource:
-          type: registry-image
-          source: { repository: busybox }
-        run:
-          path: echo
-          args: ["Hello, world!"]
+  - get: repo
+    resource: repo-main
+    passed: [test]
+    trigger: true
+  - task: simple-task
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source: { repository: busybox }
+      run:
+        path: echo
+        args: ["Hello, world!"]
