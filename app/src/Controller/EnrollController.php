@@ -6,12 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/enroll', name: 'enroll_')]
 class EnrollController extends AbstractController
 {
-    #[Route('/enroll', name: 'app_enroll')]
-    public function index(): Response
+    #[Route('/input', name: 'input', methods: ['GET'])]
+    public function input(): Response
     {
-        return $this->render('enroll/index.html.twig', [
+        return $this->render('enroll/input.html.twig', [
             'controller_name' => 'EnrollController',
         ]);
     }
