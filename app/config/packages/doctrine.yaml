@@ -1,12 +1,17 @@
 doctrine:
     dbal:
-# ORA-12545: Connect failed because target host or object does not exist
-#        url: 'oci8://symfony/symfony@localhost:1521/XEPDB1'
+# urlが定義される場合、これが優先される。
+# （Oracleだけ？）db:createするとDB名でユーザ作成するが、schema:create時は定義値userが使われる。
+# db:createで作成するユーザは「XE」じゃないとコケる
+# ./bin/console doctrine:database:drop --force --env=db
+# ./bin/console doctrine:database:create --env=db
+# ./bin/console doctrine:schema:create
+        url: '%env(DATABASE_URL)%'
         driver: oci8
         dbname: XE
         host: localhost
         port: 1521
-        user: symfony
+        user: XE
         password: symfony
         servicename: XEPDB1
         service: true
