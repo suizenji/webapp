@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EnrollController!{% endblock %}
+{% block title %}enroll input{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/vagrant/app/src/Controller/EnrollController.php'|file_link(0) }}">src/Controller/EnrollController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/vagrant/app/templates/enroll/index.html.twig'|file_link(0) }}">templates/enroll/index.html.twig</a></code></li>
-    </ul>
+    <h1>enroll page</h1>
+    {{ form(form) }}
 </div>
 {% endblock %}
