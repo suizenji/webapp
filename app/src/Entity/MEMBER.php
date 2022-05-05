@@ -6,6 +6,7 @@ use App\Repository\MEMBERRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MEMBERRepository::class)]
 class MEMBER implements UserInterface, PasswordAuthenticatedUserInterface
@@ -16,12 +17,20 @@ class MEMBER implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private $email;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
     #[ORM\Column(type: 'string')]
+    #[Assert\Length(
+        min: 8,
+        max: 255,
+        minMessage: 'under',
+        maxMessage: 'over',
+    )]
     private $password;
 
     public function getId(): ?int
