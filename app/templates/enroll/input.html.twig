@@ -12,22 +12,21 @@
     <h1>enroll page</h1>
 
     {{ form_start(form) }}
-    <div>{{ form_errors(form) }}</div>
-
     <div>
         <div>
             {{ form_label(form.email) }}
             {{ form_widget(form.email) }}
+	    {{ form_errors(form.email) }}
         </div>
         <div>
             {{ form_label(form.password) }}
             {{ form_widget(form.password) }}
+	    {{ form_errors(form.password) }}
         </div>
 
         {{ form_label(form.submit) }}
         {{ form_widget(form.submit) }}
     </div>
-
     {{ form_end(form) }}
 </div>
 {% endblock %}

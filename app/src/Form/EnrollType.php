@@ -15,8 +15,17 @@ class EnrollType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'maxlength' => MEMBER::EMAIL_LENGTH_MAX,
+                ],
+            ])
+            ->add('password', PasswordType::class, [
+                'attr' => [
+                    'minlength' => MEMBER::PASSWORD_LENGTH_MIN,
+                    'maxlength' => MEMBER::PASSWORD_LENGTH_MAX,
+                ],
+            ])
             ->add('submit', SubmitType::class)
         ;
     }

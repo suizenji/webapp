@@ -11,12 +11,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: MEMBERRepository::class)]
 class MEMBER implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    public const EMAIL_LENGTH_MAX = 180;
+    public const PASSWORD_LENGTH_MIN = 8;
+    public const PASSWORD_LENGTH_MAX = 255;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[ORM\Column(type: 'string', length: self::EMAIL_LENGTH_MAX, unique: true)]
     #[Assert\NotBlank]
     #[Assert\Email]
     private $email;
@@ -26,8 +30,8 @@ class MEMBER implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string')]
     #[Assert\Length(
-        min: 8,
-        max: 255,
+        min: self::PASSWORD_LENGTH_MIN,
+        max: self::PASSWORD_LENGTH_MAX,
         minMessage: 'under',
         maxMessage: 'over',
     )]
