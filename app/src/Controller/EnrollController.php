@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @see https://symfony.com/doc/current/the-fast-track/ja/14-form.html
  * @see https://symfony.com/doc/current/forms.html
  * @see https://symfony.com/doc/current/form/form_customization.html
+ * @see https://symfony.com/doc/current/validation.html
  */
 #[Route('/enroll', name: 'enroll_', methods: ['HEAD', 'GET'])]
 class EnrollController extends AbstractController
@@ -35,9 +36,10 @@ class EnrollController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             var_dump('submit!');
-
-            $this->em->persist($member);
-            $this->em->flush();
+            // TODO hash
+            //$this->em->persist($member);
+            //$this->em->flush();
+            //return $this->redirect($this->generateUrl('app_login'));
         }
 
         return $this->render('enroll/input.html.twig', [
