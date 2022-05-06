@@ -45,8 +45,7 @@ class EnrollController extends AbstractController
             );
             $member->setPassword($hashedPassword);
 
-            var_dump('submit!');
-
+            // TODO reopsitory
             // TODO unique check
             $this->em->persist($member);
             $this->em->flush();
