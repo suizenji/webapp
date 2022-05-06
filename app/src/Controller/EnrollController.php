@@ -51,7 +51,7 @@ class EnrollController extends AbstractController
             $this->em->persist($member);
             $this->em->flush();
 
-            return $this->redirect($this->generateUrl('app_login'));
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('enroll/input.html.twig', [
