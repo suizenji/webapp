@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @see https://symfony.com/doc/current/validation.html
  * @see https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
  */
-#[Route('/enroll', name: 'enroll_', methods: ['HEAD', 'GET'])]
+#[Route('/enroll', name: 'app_enroll_', methods: ['HEAD', 'GET'])]
 class EnrollController extends AbstractController
 {
     private $em;
