@@ -29,13 +29,15 @@ class MEMBER implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     #[ORM\Column(type: 'string')]
+    private $password;
+
     #[Assert\Length(
         min: self::PASSWORD_LENGTH_MIN,
         max: self::PASSWORD_LENGTH_MAX,
         minMessage: 'under',
         maxMessage: 'over',
     )]
-    private $password;
+    private $plainPassword;
 
     public function getId(): ?int
     {
@@ -98,12 +100,24 @@ class MEMBER implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 }
