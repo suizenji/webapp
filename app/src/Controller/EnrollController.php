@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\MEMBER;
+use App\Entity\Member;
 use App\Form\EnrollType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,7 +34,7 @@ class EnrollController extends AbstractController
     #[Route('/input', name: 'input', methods: ['POST'])]
     public function input(Request $request): Response
     {
-        $member = new MEMBER();
+        $member = new Member();
         $form = $this->createForm(EnrollType::class, $member);
 
         $form->handleRequest($request);

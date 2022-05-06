@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\MEMBERRepository;
+use App\Repository\MemberRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: MEMBERRepository::class)]
-class MEMBER implements UserInterface, PasswordAuthenticatedUserInterface
+#[ORM\Entity(repositoryClass: MemberRepository::class)]
+class Member implements UserInterface, PasswordAuthenticatedUserInterface
 {
     public const EMAIL_LENGTH_MAX = 180;
     public const PASSWORD_LENGTH_MIN = 8;

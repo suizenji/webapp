@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\MEMBER;
+use App\Entity\Member;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -12,23 +12,23 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
- * @method MEMBER|null find($id, $lockMode = null, $lockVersion = null)
- * @method MEMBER|null findOneBy(array $criteria, array $orderBy = null)
- * @method MEMBER[]    findAll()
- * @method MEMBER[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Member|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Member|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Member[]    findAll()
+ * @method Member[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MEMBERRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class MemberRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, MEMBER::class);
+        parent::__construct($registry, Member::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(MEMBER $entity, bool $flush = true): void
+    public function add(Member $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -40,7 +40,7 @@ class MEMBERRepository extends ServiceEntityRepository implements PasswordUpgrad
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(MEMBER $entity, bool $flush = true): void
+    public function remove(Member $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -53,7 +53,7 @@ class MEMBERRepository extends ServiceEntityRepository implements PasswordUpgrad
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
-        if (!$user instanceof MEMBER) {
+        if (!$user instanceof Member) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
         }
 
@@ -63,7 +63,7 @@ class MEMBERRepository extends ServiceEntityRepository implements PasswordUpgrad
     }
 
     // /**
-    //  * @return MEMBER[] Returns an array of MEMBER objects
+    //  * @return Member[] Returns an array of Member objects
     //  */
     /*
     public function findByExampleField($value)
@@ -80,7 +80,7 @@ class MEMBERRepository extends ServiceEntityRepository implements PasswordUpgrad
     */
 
     /*
-    public function findOneBySomeField($value): ?MEMBER
+    public function findOneBySomeField($value): ?Member
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.exampleField = :val')

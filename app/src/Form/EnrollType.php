@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\MEMBER;
+use App\Entity\Member;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -17,14 +17,14 @@ class EnrollType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'maxlength' => MEMBER::EMAIL_LENGTH_MAX,
+                    'maxlength' => Member::EMAIL_LENGTH_MAX,
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'Password',
                 'attr' => [
-                    'minlength' => MEMBER::PASSWORD_LENGTH_MIN,
-                    'maxlength' => MEMBER::PASSWORD_LENGTH_MAX,
+                    'minlength' => Member::PASSWORD_LENGTH_MIN,
+                    'maxlength' => Member::PASSWORD_LENGTH_MAX,
                 ],
             ])
             ->add('submit', SubmitType::class)
@@ -34,7 +34,7 @@ class EnrollType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => MEMBER::class,
+            'data_class' => Member::class,
         ]);
     }
 }
