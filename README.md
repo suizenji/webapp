@@ -31,6 +31,12 @@ $ fly -t webapp unpause-pipeline -p pl
 $ fly -t webapp trigger-job --job pl/test --watch
 ```
 
+## local server
+```
+$ export DATABASE_URL="sqlite:///$(pwd)/var/data.db"
+$ symfony serve
+```
+
 ## oci8
 ```
 [vagrant@localhost ~]$ dnf install php-oci8
