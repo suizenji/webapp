@@ -53,8 +53,8 @@ class EnrollController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('enroll/input.html.twig', [
-            'form' => $form->createView(),
+        return $this->renderForm('enroll/input.html.twig', [
+            'form' => $form,
         ]);
     }
 }
