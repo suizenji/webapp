@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Sandbox\AcsAtr;
 use App\Traits\AccessorAttr;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,11 +13,10 @@ class SandboxController extends AbstractController
     #[Route('/sandbox', name: 'app_sandbox')]
     public function index(): Response
     {
-        $foo = new class() {
-            use AccessorAttr;
-        };
-        $foo->set('bar', 'val');
-        var_dump($foo->get('bar'));
+        $obj = new AcsAtr();
+        var_dump($obj->get('priInt'));
+        $obj->set('priInt', 1);
+        var_dump($obj->get('priInt'));
 
         return $this->render('sandbox/index.html.twig', [
             'controller_name' => 'SandboxController',
