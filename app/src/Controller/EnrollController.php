@@ -22,13 +22,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/enroll', name: 'app_enroll_', methods: ['HEAD', 'GET'])]
 class EnrollController extends AbstractController
 {
-    private $em;
-    private $pwh;
-
-    public function __construct(EntityManagerInterface $em, UserPasswordHasherInterface $pwh)
-    {
-        $this->em = $em;
-        $this->pwh = $pwh;
+    public function __construct(
+        private EntityManagerInterface $em,
+        private UserPasswordHasherInterface $pwh
+    ) {
+        // do nothing
     }
 
     #[Route('/input', name: 'input', methods: ['POST'])]
