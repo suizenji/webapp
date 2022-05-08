@@ -14,13 +14,6 @@ class AccessorAttrTraitTest extends TestCase
         $this->assertTrue($obj->get('onAttr'));
     }
 
-    public function testAccessorChild(): void
-    {
-        $obj = new AccessorAttrChild();
-        $obj->set('onAttr', true);
-        $this->assertTrue($obj->get('onAttr'));
-    }
-
     public function testAttrGetter(): void
     {
         $this->expectExceptionMessage('Getter attr is not setted.');
@@ -32,10 +25,17 @@ class AccessorAttrTraitTest extends TestCase
     {
         $this->expectExceptionMessage('Setter attr is not setted.');
         $obj = new AccessorAttr();
-        $obj->set('offAttr', 1);
+        $obj->set('offAttr', true);
     }
 
-    public function testAttrOverwrite(): void
+    public function testAttrOverwriteOn(): void
+    {
+        $this->expectExceptionMessage('Setter attr is not setted.');
+        $obj = new AccessorAttrChild();
+        $obj->set('onAttr', true);
+    }
+
+    public function testAttrOverwriteOff(): void
     {
         $obj = new AccessorAttrChild();
         $obj->set('offAttr', true);
@@ -56,6 +56,8 @@ class AccessorAttr
 
 class AccessorAttrChild extends AccessorAttr
 {
+    public $onAttr;
+
     #[Getter]
     #[Setter]
     public $offAttr;
