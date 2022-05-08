@@ -8,7 +8,7 @@ namespace App\Traits;
  * #[Setter]
  * private int $i;
  */
-trait AccessorAttr
+trait AccessorAttrTrait
 {
     public function get(string $name): mixed
     {

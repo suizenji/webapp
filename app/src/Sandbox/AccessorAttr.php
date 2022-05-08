@@ -2,11 +2,11 @@
 
 namespace App\Sandbox;
 
-use App\Traits\AccessorAttr;
+use App\Traits\AccessorAttrTrait;
 
-class AcsAtr
+class AccessorAttr
 {
-    use AccessorAttr;
+    use AccessorAttrTrait;
 
     #[Getter]
     #[Setter]
