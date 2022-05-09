@@ -17,10 +17,9 @@ trait AccessorAttrTrait
     public function get(string $name): mixed
     {
         $reflection = new \ReflectionClass($this);
-        $ns = $reflection->getNamespaceName();
         $prop = $reflection->getProperty($name);
-        $attrName = $ns . '\Getter';
 
+        $attrName = $reflection->getNamespaceName() . '\Getter';
         if (!($attrs = $prop->getAttributes($attrName))) {
             throw new \RuntimeException('Getter attr is not setted.');
         }
@@ -42,10 +41,9 @@ trait AccessorAttrTrait
     public function set(string $name, mixed $value)
     {
         $reflection = new \ReflectionClass($this);
-        $ns = $reflection->getNamespaceName();
         $prop = $reflection->getProperty($name);
-        $attrName = $ns . '\Setter';
 
+        $attrName = $reflection->getNamespaceName() . '\Setter';
         if (!($attrs = $prop->getAttributes($attrName))) {
             throw new \RuntimeException('Setter attr is not setted.');
         }
