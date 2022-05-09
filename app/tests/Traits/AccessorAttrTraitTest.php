@@ -14,11 +14,37 @@ class AccessorAttrTraitTest extends TestCase
         $obj->set('onAttr', true);
         $this->assertTrue($obj->get('onAttr'), 'Accessor');
 
-        $this->expectExceptionMessage('Getter attr is not setted.');
-        $obj->get('offAttr');
+        try {
+            $obj->get('offAttr');
+        } catch (\Exception $e) {
+            $msg = $e->getMessage();
+            $this->assertEquals('Getter attr is not setted.', $msg);
+        }
 
-        $this->expectExceptionMessage('Setter attr is not setted.');
-        $obj->set('offAttr', 'something');
+        try {
+            $obj->set('offAttr', 'something');
+        } catch (\Exception $e) {
+            $msg = $e->getMessage();
+            $this->assertEquals('Setter attr is not setted.', $msg);
+        }
+
+
+        $obj->set('onArg', 'something');
+        $this->assertEquals($obj->get('onArg'), 'overwrite');
+
+        try {
+            $obj->get('offArg');
+        } catch (\Exception $e) {
+            $msg = $e->getMessage();
+            $this->assertEquals("method 'getFoo' is not found.", $msg);
+        }
+
+        try {
+            $obj->set('offArg', 'something');
+        } catch (\Exception $e) {
+            $msg = $e->getMessage();
+            $this->assertEquals("method 'setFoo' is not found.", $msg);
+        }
     }
 
     public function testAttrOverwriteOn(): void
@@ -42,6 +68,22 @@ class AccessorAttr
     public $onAttr;
 
     public $offAttr;
+
+    #[Getter('getOnArg'), Setter('setOnArg')]
+    public $onArg;
+
+    #[Getter('getFoo'), Setter('setFoo')]
+    public $offArg;
+
+    public function getOnArg()
+    {
+        return $this->onArg . 'write';
+    }
+
+    public function setOnArg($value)
+    {
+        $this->onArg = 'over';
+    }
 }
 
 class AccessorAttrChild extends AccessorAttr
