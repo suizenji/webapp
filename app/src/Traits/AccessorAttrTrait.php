@@ -39,17 +39,28 @@ trait AccessorAttrTrait
         return $method->invoke($this);
     }
 
-    public function set(string $name, $value)
+    public function set(string $name, mixed $value)
     {
         $reflection = new \ReflectionClass($this);
         $ns = $reflection->getNamespaceName();
         $prop = $reflection->getProperty($name);
         $attrName = $ns . '\Setter';
 
-        if (!$prop->getAttributes($attrName)) {
+        if (!($attrs = $prop->getAttributes($attrName))) {
             throw new \RuntimeException('Setter attr is not setted.');
         }
 
-        $prop->setValue($this, $value);
+        $attr = $attrs[0];
+        if (!($args = $attr->getArguments())) {
+            return $prop->setValue($this, $value);
+        }
+
+        $methodName = $args[0];
+        if (!method_exists($this, $methodName)) {
+            throw new \RuntimeException("method '${methodName}' is not found.");
+        }
+
+        $method = $reflection->getMethod($methodName);
+        return $method->invoke($this, $value);
     }
 }
