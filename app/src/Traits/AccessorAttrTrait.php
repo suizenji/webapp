@@ -9,7 +9,7 @@ namespace App\Traits;
  * #[Setter]
  * private int $i;
  *
- * #[Getter, Setter]
+ * #[Getter('getFoo'), Setter('setFoo')]
  * private int $j;
  */
 trait AccessorAttrTrait
