@@ -58,7 +58,6 @@ class AccessorAttrChild extends AccessorAttr
 {
     public $onAttr;
 
-    #[Getter]
-    #[Setter]
+    #[Getter, Setter]
     public $offAttr;
 }

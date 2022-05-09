@@ -4,9 +4,13 @@ namespace App\Traits;
 
 /**
  * Usage:
+ *
  * #[Getter]
  * #[Setter]
  * private int $i;
+ *
+ * #[Getter, Setter]
+ * private int $j;
  */
 trait AccessorAttrTrait
 {
