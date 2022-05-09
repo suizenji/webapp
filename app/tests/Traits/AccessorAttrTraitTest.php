@@ -64,6 +64,9 @@ class AccessorAttrTraitTest extends TestCase
             $msg = $e->getMessage();
             $this->assertEquals('Setter attr is not setted.', $msg);
         }
+
+        $obj->set('onArg', 'something');
+        $this->assertEquals($obj->get('onArg'), 'underwrite');
     }
 }
 
@@ -100,4 +103,9 @@ class AccessorAttrChild extends AccessorAttr
 
     #[Getter, Setter]
     public $offAttr;
+
+    public function setOnArg($value)
+    {
+        $this->onArg = 'under';
+    }
 }
