@@ -21,11 +21,22 @@ trait AccessorAttrTrait
         $prop = $reflection->getProperty($name);
         $attrName = $ns . '\Getter';
 
-        if (!$prop->getAttributes($attrName)) {
+        if (!($attrs = $prop->getAttributes($attrName))) {
             throw new \RuntimeException('Getter attr is not setted.');
         }
 
-        return $prop->getValue($this);
+        $attr = $attrs[0];
+        if (!($args = $attr->getArguments())) {
+            return $prop->getValue($this);
+        }
+
+        $methodName = $args[0];
+        if (!method_exists($this, $methodName)) {
+            throw new \RuntimeException("method '${methodName}' is not found.");
+        }
+
+        $method = $reflection->getMethod($methodName);
+        return $method->invoke($this);
     }
 
     public function set(string $name, $value)
