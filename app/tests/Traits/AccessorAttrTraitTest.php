@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class AccessorAttrTraitTest extends TestCase
 {
-    public function testAccessor(): void
+    public function testBasic(): void
     {
         $obj = new AccessorAttr();
 
@@ -16,6 +16,7 @@ class AccessorAttrTraitTest extends TestCase
 
         try {
             $obj->get('offAttr');
+            throw new \RuntimeException('Exception is not happen.');
         } catch (\Exception $e) {
             $msg = $e->getMessage();
             $this->assertEquals('Getter attr is not setted.', $msg);
@@ -23,17 +24,18 @@ class AccessorAttrTraitTest extends TestCase
 
         try {
             $obj->set('offAttr', 'something');
+            throw new \RuntimeException('Exception is not happen.');
         } catch (\Exception $e) {
             $msg = $e->getMessage();
             $this->assertEquals('Setter attr is not setted.', $msg);
         }
-
 
         $obj->set('onArg', 'something');
         $this->assertEquals($obj->get('onArg'), 'overwrite');
 
         try {
             $obj->get('offArg');
+            throw new \RuntimeException('Exception is not happen.');
         } catch (\Exception $e) {
             $msg = $e->getMessage();
             $this->assertEquals("method 'getFoo' is not found.", $msg);
@@ -41,21 +43,27 @@ class AccessorAttrTraitTest extends TestCase
 
         try {
             $obj->set('offArg', 'something');
+            throw new \RuntimeException('Exception is not happen.');
         } catch (\Exception $e) {
             $msg = $e->getMessage();
             $this->assertEquals("method 'setFoo' is not found.", $msg);
         }
     }
 
-    public function testAttrOverwriteOn(): void
+    public function testExtends(): void
     {
         $obj = new AccessorAttrChild();
 
         $obj->set('offAttr', true);
         $this->assertTrue($obj->get('offAttr'));
 
-        $this->expectExceptionMessage('Setter attr is not setted.');
-        $obj->set('onAttr', 'something');
+        try {
+            $obj->set('onAttr', 'something');
+            throw new \RuntimeException('Exception is not happen.');
+        } catch (\Exception $e) {
+            $msg = $e->getMessage();
+            $this->assertEquals('Setter attr is not setted.', $msg);
+        }
     }
 }
 
