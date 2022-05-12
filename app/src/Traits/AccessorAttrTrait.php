@@ -35,6 +35,7 @@ trait AccessorAttrTrait
         }
 
         $method = $reflection->getMethod($methodName);
+
         return $method->invoke($this);
     }
 
@@ -59,6 +60,7 @@ trait AccessorAttrTrait
         }
 
         $method = $reflection->getMethod($methodName);
+
         return $method->invoke($this, $value);
     }
 }

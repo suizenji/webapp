@@ -13,7 +13,7 @@ class CustomPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $containerBuilder): void
     {
-        if (! $this->isPHPUnit()) {
+        if (!$this->isPHPUnit()) {
             return;
         }
 
