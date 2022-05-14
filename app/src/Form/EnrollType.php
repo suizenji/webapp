@@ -20,7 +20,7 @@ class EnrollType extends AbstractType
                     'maxlength' => Member::EMAIL_LENGTH_MAX,
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
+            ->add('plain_password', PasswordType::class, [
                 'label' => 'Password',
                 'attr' => [
                     'minlength' => Member::PASSWORD_LENGTH_MIN,
