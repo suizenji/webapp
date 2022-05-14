@@ -55,4 +55,18 @@ class EnrollController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    /** @see https://symfony.com/doc/current/templates.html */
+    //    #[Route('/input/_member_list', name: 'member_list')]
+    public function memberList()
+    {
+        $members = $this->em
+                 ->getRepository(Member::class)
+                 ->findAll()
+                 ;
+
+        return $this->render('enroll/_member_list.html.twig', [
+            'members' => $members,
+        ]);
+    }
 }
