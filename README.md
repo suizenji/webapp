@@ -66,6 +66,12 @@ $ ./bin/console config:dump-reference doctrine
 $ ./bin/console debug:config doctrine
 ```
 
+## test
+```
+$ ./bin/console doctrine:fixtures:load
+$ phpdbg -qrr ./bin/phpunit --coverage-html phpunit-result
+```
+
 ## link
 [Oracle Linux 8でWordPressサーバを立てる](https://blog.osakana.net/archives/11232)
 

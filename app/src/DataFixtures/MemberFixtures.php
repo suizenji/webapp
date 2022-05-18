@@ -9,6 +9,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class MemberFixtures extends Fixture
 {
+    private const EMAIL = 'email@email.com';
+    private const PW = 'Passw0rd';
+
     public function __construct(
         private UserPasswordHasherInterface $pwh
     ) {
@@ -19,9 +22,9 @@ class MemberFixtures extends Fixture
     {
         $member = new Member();
 
-        $hashedPassword = $this->pwh->hashPassword($member, 123);
+        $hashedPassword = $this->pwh->hashPassword($member, self::PW);
 
-        $member->setEmail('email@test.com');
+        $member->setEmail(self::EMAIL);
         $member->setPassword($hashedPassword);
 
         $manager->persist($member);
