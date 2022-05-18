@@ -31,12 +31,6 @@ fly -t webapp unpause-pipeline -p pl
 fly -t webapp trigger-job --job pl/test --watch
 ```
 
-## local server
-```
-export DATABASE_URL="sqlite:///$(pwd)/var/data.db"
-symfony serve
-```
-
 ## oci8
 ```
 [vagrant@localhost ~]$ dnf install php-oci8
@@ -68,7 +62,10 @@ https://symfony.com/doc/current/reference/configuration/doctrine.html
 
 ## test
 ```
-./bin/console doctrine:fixtures:load
+./bin/console doctrine:database:drop --force --env=test
+./bin/console doctrine:database:create --env=test
+./bin/console doctrine:schema:create --env=test
+echo yes | ./bin/console doctrine:fixtures:load --env=test
 phpdbg -qrr ./bin/phpunit --coverage-html phpunit-result
 ```
 
