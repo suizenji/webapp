@@ -9,15 +9,17 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class MemberFixtures extends Fixture
 {
-    //    public function load(ObjectManager $manager, UserPasswordHasherInterface $pwh): void
+    public function __construct(
+        private UserPasswordHasherInterface $pwh
+    ) {
+        // do nothing
+    }
+
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
         $member = new Member();
 
-        //        $hashedPassword = $pwh->hashPassword($member, 123);
-        $hashedPassword = 213;
+        $hashedPassword = $this->pwh->hashPassword($member, 123);
 
         $member->setEmail('email@test.com');
         $member->setPassword($hashedPassword);
