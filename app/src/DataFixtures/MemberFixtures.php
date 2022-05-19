@@ -9,8 +9,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class MemberFixtures extends Fixture
 {
-    private const EMAIL = 'email@email.com';
-    private const PW = 'Passw0rd';
+    public const EMAIL = 'email@email.com';
+    public const PW = 'Passw0rd';
 
     public function __construct(
         private UserPasswordHasherInterface $pwh
