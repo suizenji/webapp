@@ -7,11 +7,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use App\Event\FooEvent;
+use App\EventSubscriber\FooSubscriber;
+
 class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(
+        AuthenticationUtils $authenticationUtils,
+        EventDispatcherInterface $dispatcher,
+    ): Response
     {
+        $event = new FooEvent('inject context');
+        //        $dispatcher->addSubscriber(new FooSubscriber());
+        $dispatcher->dispatch($event, FooEvent::NAME);
+
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
         // }
