@@ -11,6 +11,10 @@ class ExceptionListener
     /** @link https://symfony.com/doc/current/event_dispatcher.html */
     public function onKernelException(ExceptionEvent $event)
     {
+        var_dump(__FUNCTION__);
+
+        return;
+
         // You get the exception object from the received event
         $exception = $event->getThrowable();
         $message = sprintf(
