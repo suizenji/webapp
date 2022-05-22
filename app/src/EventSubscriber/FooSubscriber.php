@@ -14,6 +14,8 @@ class FooSubscriber implements EventSubscriberInterface
 
     public function onFooAction(FooEvent $event): void
     {
+        return;
+
         var_dump(self::$count++);
         var_dump($event->getContext());
     }
