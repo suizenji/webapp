@@ -10,7 +10,8 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  * ./bin/console make:migration
- * @link https://qiita.com/kaneyama/items/a9416c9dd3a77ab42cc6
+ *
+ * @see https://qiita.com/kaneyama/items/a9416c9dd3a77ab42cc6
  */
 final class Version20220518034248 extends AbstractMigration
 {

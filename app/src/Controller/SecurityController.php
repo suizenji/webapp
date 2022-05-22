@@ -2,14 +2,13 @@
 
 namespace App\Controller;
 
+use App\Event\FooEvent;
+use App\EventSubscriber\FooSubscriber;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use App\Event\FooEvent;
-use App\EventSubscriber\FooSubscriber;
 
 class SecurityController extends AbstractController
 {
@@ -17,8 +16,7 @@ class SecurityController extends AbstractController
     public function login(
         AuthenticationUtils $authenticationUtils,
         EventDispatcherInterface $dispatcher,
-    ): Response
-    {
+    ): Response {
         $event = new FooEvent('inject context');
         //        $dispatcher->addSubscriber(new FooSubscriber());
         $dispatcher->dispatch($event, FooEvent::NAME);

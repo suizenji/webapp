@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
- * @link https://symfony.com/doc/current/event_dispatcher.html
+ * @see https://symfony.com/doc/current/event_dispatcher.html
  */
 class ExceptionSubscriber implements EventSubscriberInterface
 {

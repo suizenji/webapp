@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class ExceptionListener
 {
-    /** @link https://symfony.com/doc/current/event_dispatcher.html */
+    /** @see https://symfony.com/doc/current/event_dispatcher.html */
     public function onKernelException(ExceptionEvent $event)
     {
         var_dump(__FUNCTION__);

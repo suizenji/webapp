@@ -6,11 +6,11 @@ use App\Event\FooEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * @link https://q.agency/blog/custom-events-with-symfony5
+ * @see https://q.agency/blog/custom-events-with-symfony5
  */
 class FooSubscriber implements EventSubscriberInterface
 {
-    static $count = 0;
+    public static $count = 0;
 
     public function onFooAction(FooEvent $event): void
     {

@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Twig\Environment;
 
 /**
- * @link https://symfony.com/doc/current/the-fast-track/ja/12-event.html
+ * @see https://symfony.com/doc/current/the-fast-track/ja/12-event.html
  */
 class TwigSubscriber implements EventSubscriberInterface
 {
