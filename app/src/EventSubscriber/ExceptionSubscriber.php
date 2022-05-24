@@ -43,6 +43,8 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
     public function notifyException(ExceptionEvent $event)
     {
+        return;
+        /*
         $template = self::PATH_PAGES_ERROR . 'error.html.twig';
         $content = $this->twig->render($template);
 
@@ -50,5 +52,6 @@ class ExceptionSubscriber implements EventSubscriberInterface
         $response->setContent($content);
 
         $event->setResponse($response);
+        */
     }
 }
