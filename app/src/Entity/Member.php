@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MemberRepository;
+use App\Validator as MyAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -39,6 +40,7 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
         minMessage: 'under',
         maxMessage: 'over',
     )]
+    #[MyAssert\ContainsAlphanumeric(options: ['mode' => 'loose'])]
     private $plainPassword;
 
     /** @see https://symfony.com/doc/current/validation.html#getters */
