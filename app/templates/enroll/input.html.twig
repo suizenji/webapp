@@ -18,6 +18,12 @@
     )) }}
 
     {{ form_start(form) }}
+
+    {# https://stackoverflow.com/questions/8914649/simple-check-if-form-field-has-errors-in-twig-template #}
+    {% for formError in form.vars.errors %}
+    <p>{{ formError.message }}</p>
+    {% endfor %}
+
     <div>
         <div>
             {{ form_label(form.email) }}
