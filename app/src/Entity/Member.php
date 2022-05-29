@@ -44,7 +44,7 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     private $plainPassword;
 
     /** @see https://symfony.com/doc/current/validation.html#getters */
-    #[Assert\IsTrue(message: 'password !== email')]
+    #[Assert\IsTrue(message: 'password === email')]
     public function isPlainPasswordSafe()
     {
         return $this->plainPassword !== $this->email;
