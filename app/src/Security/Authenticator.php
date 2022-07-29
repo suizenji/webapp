@@ -15,6 +15,8 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+use Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken;
+
 class Authenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
@@ -41,6 +43,14 @@ class Authenticator extends AbstractLoginFormAuthenticator
                 new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
             ]
         );
+    }
+
+    public function createToken(Passport $passport, string $firewallName): TokenInterface
+    {
+        $user = $passport->getUser();
+        /** @see UserProvider::refreshUser() */
+        $user->setRoles(['ROLE_USER', 'ROLE_FOO']);
+        return parent::createToken($passport, $firewallName);
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response

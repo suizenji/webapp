@@ -13,13 +13,18 @@ security:
             entity:
                 class: App\Entity\Member
                 property: email
+#            id: App\Entity\UserProvider
+        my_provider:
+            id: App\Security\UserProvider
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: app_user_provider
+#            provider: app_user_provider
+            provider: my_provider
             custom_authenticator: App\Security\Authenticator
             logout:
                 path: app_logout
