@@ -19,6 +19,9 @@ class Post
     #[ORM\Column(type: 'boolean')]
     private $public;
 
+    #[ORM\Column(type: 'string', length: 128)]
+    private $title;
+
     #[ORM\Column(type: 'string', length: 1024, nullable: true)]
     private $content;
 
@@ -89,6 +92,18 @@ class Post
     public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
 
         return $this;
     }
