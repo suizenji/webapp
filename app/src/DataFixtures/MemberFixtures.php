@@ -12,6 +12,10 @@ class MemberFixtures extends Fixture
     public const EMAIL = 'email@email.com';
     public const PW = 'Passw0rd';
 
+    public const DATA_LIST = [
+        [self::EMAIL, self::PW],
+    ];
+
     public function __construct(
         private UserPasswordHasherInterface $pwh
     ) {
@@ -20,14 +24,15 @@ class MemberFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $member = new Member();
+        foreach (self::DATA_LIST as $data) {
+            $member = new Member();
+            $member->setEmail($data[0]);
 
-        $hashedPassword = $this->pwh->hashPassword($member, self::PW);
+            $hashedPassword = $this->pwh->hashPassword($member, $data[1]);
+            $member->setPassword($hashedPassword);
 
-        $member->setEmail(self::EMAIL);
-        $member->setPassword($hashedPassword);
-
-        $manager->persist($member);
-        $manager->flush();
+            $manager->persist($member);
+            $manager->flush();
+        }
     }
 }
