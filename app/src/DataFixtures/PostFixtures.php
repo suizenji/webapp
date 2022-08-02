@@ -20,7 +20,7 @@ class PostFixtures extends Fixture
         foreach (self::DATA_LIST as $data) {
             $post = new Post();
             $post->setEditor($data[0]);
-            $post->setPublic($data[1]);
+            $post->setIsPublic($data[1]);
             $post->setTitle($data[2]);
             $post->setContent($data[3]);
             $post->setCreatedAt(new \DateTimeImmutable());

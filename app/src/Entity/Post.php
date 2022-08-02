@@ -14,7 +14,7 @@ class Post
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $owner;
+    private $editor;
 
     #[ORM\Column(type: 'boolean')]
     private $is_public;
@@ -34,6 +34,18 @@ class Post
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getEditor(): ?string
+    {
+        return $this->editor;
+    }
+
+    public function setEditor(string $editor): self
+    {
+        $this->editor = $editor;
+
+        return $this;
     }
 
     public function getContent(): ?string
