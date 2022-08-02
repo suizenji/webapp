@@ -17,7 +17,7 @@ class Post
     private $editor;
 
     #[ORM\Column(type: 'boolean')]
-    private $public;
+    private $is_public;
 
     #[ORM\Column(type: 'string', length: 128)]
     private $title;
@@ -44,18 +44,6 @@ class Post
     public function setEditor(string $editor): self
     {
         $this->editor = $editor;
-
-        return $this;
-    }
-
-    public function getPublic(): ?bool
-    {
-        return $this->public;
-    }
-
-    public function setPublic(?bool $public): self
-    {
-        $this->public = $public;
 
         return $this;
     }
@@ -104,6 +92,18 @@ class Post
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getIsPublic(): ?bool
+    {
+        return $this->is_public;
+    }
+
+    public function setIsPublic(bool $is_public): self
+    {
+        $this->is_public = $is_public;
 
         return $this;
     }
