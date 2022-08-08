@@ -12,7 +12,7 @@ class EnrollTypeTest extends KernelTestCase
 {
     public function testOK(): void
     {
-        $form = $this->checkForm(EnrollType::class, new Member(), [
+        $form = $this->submitForm(EnrollType::class, new Member(), [
             'email' => 'name@domain.com',
             'plain_password' => 'pass1234',
         ]);
@@ -23,7 +23,7 @@ class EnrollTypeTest extends KernelTestCase
 
     public function testNG(): void
     {
-        $form = $this->checkForm(EnrollType::class, new Member(), [
+        $form = $this->submitForm(EnrollType::class, new Member(), [
             'email' => 'name@domain.com',
             'plain_password' => 'pass123',
         ]);
@@ -40,7 +40,7 @@ class EnrollTypeTest extends KernelTestCase
         ]);
     }
 
-    protected function checkForm($type, $entity, $data): Form
+    protected function submitForm($type, $entity, $data): Form
     {
         $request = Request::create('/', 'POST', [
             'enroll' => $data,
