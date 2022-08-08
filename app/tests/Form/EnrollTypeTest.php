@@ -10,26 +10,45 @@ use Symfony\Component\HttpFoundation\Request;
 
 class EnrollTypeTest extends KernelTestCase
 {
-    public function testSomething(): void
+    public function testOK(): void
     {
-        $container = static::getContainer();
-
-        $formData = [
-            'enroll' => [
-                'email' => 'test@domain.com',
-                'plain_password' => 'pass1234',
-            ],
-        ];
-
-        $request = Request::create('/', 'POST', $formData);
-
-        $member = new Member();
-        $form = $container->get('form.factory')->create(EnrollType::class, $member, [
-            'csrf_protection' => false,
+        $form = $this->checkForm(EnrollType::class, new Member(), [
+            'email' => 'name@domain.com',
+            'plain_password' => 'pass1234',
         ]);
 
+        $this->assertTrue($form->isSubmitted());
+        $this->assertTrue($form->isValid());
+    }
+
+    public function testNG(): void
+    {
+        $form = $this->checkForm(EnrollType::class, new Member(), [
+            'email' => 'name@domain.com',
+            'plain_password' => 'pass123',
+        ]);
+
+        $this->assertTrue($form->isSubmitted());
+        $this->assertFalse($form->isValid());
+        $this->assertEquals('under', $form->getErrors()[0]->getMessage());
+    }
+
+    protected function createForm($type, $entity): Form
+    {
+        return static::getContainer()->get('form.factory')->create($type, $entity, [
+            'csrf_protection' => false,
+        ]);
+    }
+
+    protected function checkForm($type, $entity, $data): Form
+    {
+        $request = Request::create('/', 'POST', [
+            'enroll' => $data,
+        ]);
+
+        $form = $this->createForm($type, $entity);
         $form->handleRequest($request);
-        $this->assertTrue($form->isSubmitted(), 'NG Submit');
-        $this->assertTrue($form->isValid(), 'Invalid form');
+
+        return $form;
     }
 }
