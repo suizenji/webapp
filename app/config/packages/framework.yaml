@@ -17,6 +17,14 @@ framework:
     php_errors:
         log: true
 
+    http_client:
+        scoped_clients:
+            ugtop.client:
+#                scope: 'https://www\.ugtop\.com'
+                base_uri: 'https://www.ugtop.com'
+                headers:
+                    Referer: 'http://referer.com'
+
 when@test:
     framework:
         test: true

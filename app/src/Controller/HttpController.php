@@ -10,9 +10,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class HttpController extends AbstractController
 {
     #[Route('/http', name: 'app_http')]
-    public function index(HttpClientInterface $client): Response
+    public function index(HttpClientInterface $ugtopClient): Response
     {
-        $response = $client->request('GET', 'https://www.ugtop.com/spill.shtml');
+#        $response = $ugtopClient->request('GET', 'https://www.ugtop.com/spill.shtml');
+        $response = $ugtopClient->request('GET', '/spill.shtml');
 
         return new Response($response->getContent());
     }
