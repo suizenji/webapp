@@ -16,10 +16,10 @@ trait AccessorAttrTrait
 {
     public function get(string $name): mixed
     {
-        $reflection = new \ReflectionClass($this);
-        $prop = $reflection->getProperty($name);
+        $refClass = new \ReflectionClass($this);
+        $prop = $refClass->getProperty($name);
 
-        $attrName = $reflection->getNamespaceName() . '\Getter';
+        $attrName = $refClass->getNamespaceName() . '\Getter';
         if (!($attrs = $prop->getAttributes($attrName))) {
             throw new \RuntimeException('Getter attr is not setted.');
         }
@@ -34,17 +34,17 @@ trait AccessorAttrTrait
             throw new \RuntimeException("method '${methodName}' is not found.");
         }
 
-        $method = $reflection->getMethod($methodName);
+        $method = $refClass->getMethod($methodName);
 
         return $method->invoke($this);
     }
 
     public function set(string $name, mixed $value)
     {
-        $reflection = new \ReflectionClass($this);
-        $prop = $reflection->getProperty($name);
+        $refClass = new \ReflectionClass($this);
+        $prop = $refClass->getProperty($name);
 
-        $attrName = $reflection->getNamespaceName() . '\Setter';
+        $attrName = $refClass->getNamespaceName() . '\Setter';
         if (!($attrs = $prop->getAttributes($attrName))) {
             throw new \RuntimeException('Setter attr is not setted.');
         }
@@ -59,7 +59,7 @@ trait AccessorAttrTrait
             throw new \RuntimeException("method '${methodName}' is not found.");
         }
 
-        $method = $reflection->getMethod($methodName);
+        $method = $refClass->getMethod($methodName);
 
         return $method->invoke($this, $value);
     }
