@@ -68,6 +68,26 @@ class AccessorAttrTraitTest extends TestCase
         $obj->set('onArg', 'something');
         $this->assertEquals($obj->get('onArg'), 'underwrite');
     }
+
+    public function testClass(): void
+    {
+        $obj = new AccessorClassAttr();
+
+        $obj->set('valClass', true);
+        $this->assertTrue($obj->get('valClass'));
+
+        $obj->set('valProp', true);
+        $this->assertEquals($obj->get('valProp'), 'overwrite');
+
+
+        $obj = new AccessorClassAttrRev();
+
+        $obj->set('valClass', true);
+        $this->assertTrue($obj->get('valClass'));
+
+        $obj->set('valProp', true);
+        $this->assertEquals($obj->get('valProp'), 'overwrite');
+    }
 }
 
 class AccessorAttr
@@ -107,5 +127,51 @@ class AccessorAttrChild extends AccessorAttr
     public function setOnArg($value)
     {
         $this->onArg = 'under';
+    }
+}
+
+#[Getter]
+#[Setter]
+class AccessorClassAttr
+{
+    use AccessorAttrTrait;
+
+    public $valClass;
+
+    #[Getter('getValProp')]
+    #[Setter('setValProp')]
+    public $valProp;
+
+    public function getValProp()
+    {
+        return $this->valProp . 'write';
+    }
+
+    public function setValProp($value)
+    {
+        $this->valProp = 'over';
+    }
+}
+
+#[Getter('getValProp')]
+#[Setter('setValProp')]
+class AccessorClassAttrRev
+{
+    use AccessorAttrTrait;
+
+    #[Getter]
+    #[Setter]
+    public $valClass;
+
+    public $valProp;
+
+    public function getValProp()
+    {
+        return $this->valProp . 'write';
+    }
+
+    public function setValProp($value)
+    {
+        $this->valProp = 'over';
     }
 }

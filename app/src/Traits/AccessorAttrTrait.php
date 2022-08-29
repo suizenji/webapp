@@ -11,6 +11,9 @@ namespace App\Traits;
  *
  * #[Getter('getFoo'), Setter('setFoo')]
  * private int $j;
+ *
+ * #[Getter]
+ * class AccessorClass {}
  */
 trait AccessorAttrTrait
 {
@@ -20,7 +23,9 @@ trait AccessorAttrTrait
         $prop = $refClass->getProperty($name);
 
         $attrName = $refClass->getNamespaceName() . '\Getter';
-        if (!($attrs = $prop->getAttributes($attrName))) {
+        $attrs = $prop->getAttributes($attrName) ?: $refClass->getAttributes($attrName);
+
+        if (!$attrs) {
             throw new \RuntimeException('Getter attr is not setted.');
         }
 
@@ -45,7 +50,9 @@ trait AccessorAttrTrait
         $prop = $refClass->getProperty($name);
 
         $attrName = $refClass->getNamespaceName() . '\Setter';
-        if (!($attrs = $prop->getAttributes($attrName))) {
+        $attrs = $prop->getAttributes($attrName) ?: $refClass->getAttributes($attrName);
+
+        if (!$attrs) {
             throw new \RuntimeException('Setter attr is not setted.');
         }
 
