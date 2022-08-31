@@ -1,0 +1,29 @@
+framework:
+#    workflows: null
+    workflows:
+        wireframe:
+            type: 'state_machine'
+            marking_store:
+                 type: 'method'
+                 property: 'currentPlace'
+            supports:
+                - App\Workflow\Entity\Wireframe
+            initial_marking: start
+            places:
+                - start
+                - input
+                - confirm
+                - result
+            transitions:
+                visit:
+                    from: start
+                    to: input
+                write_out:
+                    from: input
+                    to: confirm
+                submit:
+                    from: confirm
+                    to: result
+                rewrite:
+                    from: [confirm, result]
+                    to: input
