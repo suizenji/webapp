@@ -2,15 +2,26 @@
 
 namespace App\Controller;
 
+use App\Workflow\Entity\WireframeEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Workflow\Registry;
+use Symfony\Component\Workflow\Workflow;
 
 class WireframeController extends AbstractController
 {
-    #[Route('/wireframe', name: 'app_wireframe')]
-    public function index(): Response
+    public function __construct(private Registry $workflows)
     {
+    }
+
+    #[Route('/wireframe', name: 'app_wireframe')]
+    public function index(WireframeEntity $wireframe): Response
+    {
+        $stateMachine = $this->workflows->get($wireframe);
+
+        var_dump($stateMachine->can($wireframe, 'visit'));
+
         return $this->render('wireframe/index.html.twig', [
             'controller_name' => 'index',
         ]);

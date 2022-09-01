@@ -1,13 +1,13 @@
 framework:
 #    workflows: null
     workflows:
-        wireframe:
+        my_wireframe:
             type: 'state_machine'
             marking_store:
                  type: 'method'
                  property: 'currentPlace'
             supports:
-                - App\Workflow\Entity\Wireframe
+                - App\Workflow\Entity\WireframeEntity
             initial_marking: start
             places:
                 - start
@@ -25,5 +25,5 @@ framework:
                     from: confirm
                     to: result
                 rewrite:
-                    from: [confirm, result]
+                    from: confirm
                     to: input
