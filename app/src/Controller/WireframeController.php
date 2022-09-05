@@ -2,21 +2,26 @@
 
 namespace App\Controller;
 
-use App\Workflow\Wireframe\Wireframe;
+use App\Workflow\Wireframe\WireframeInterface;
+use App\Workflow\Wireframe\WireframeFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class WireframeController extends AbstractController
 {
-    public function __construct(private Wireframe $wf)
-    {
+    private WireframeInterface $wf;
+
+    public function __construct(
+        private WireframeFactoryInterface $wfFactory,
+    ) {
+        $this->wf = $wfFactory->create('my_wireframe');
     }
 
     #[Route('/wireframe', name: 'app_wireframe')]
     public function index(): Response
     {
-        $this->wf->reset('my_wireframe');
+        $this->wf->reset();
         $this->dump();
 
         return $this->render('wireframe/index.html.twig', [
@@ -29,12 +34,12 @@ class WireframeController extends AbstractController
     {
         $this->dump();
 
-        if ($this->wf->isValid('my_wireframe', 'visit')) {
+        if ($this->wf->isValid('visit')) {
             echo 'first access';
-            $this->wf->update('my_wireframe', 'visit');
-        } else if ($this->wf->isValid('my_wireframe', 'rewrite')) {
+            $this->wf->update('visit');
+        } else if ($this->wf->isValid('rewrite')) {
             echo 'rewrite';
-            $this->wf->update('my_wireframe', 'rewrite');
+            $this->wf->update('rewrite');
         } else {
             echo 'NG';
         }
@@ -49,9 +54,9 @@ class WireframeController extends AbstractController
     {
         $this->dump();
 
-        if ($this->wf->isValid('my_wireframe', 'write_out')) {
+        if ($this->wf->isValid('write_out')) {
             echo 'write_out';
-            $this->wf->update('my_wireframe', 'write_out');
+            $this->wf->update('write_out');
         } else {
             echo 'NG';
         }
@@ -66,9 +71,9 @@ class WireframeController extends AbstractController
     {
         $this->dump();
 
-        if ($this->wf->isValid('my_wireframe', 'submit')) {
+        if ($this->wf->isValid('submit')) {
             echo 'submit';
-            $this->wf->update('my_wireframe', 'submit');
+            $this->wf->update('submit');
         } else {
             echo 'NG';
         }
@@ -80,20 +85,20 @@ class WireframeController extends AbstractController
 
     public function dump()
     {
-        $entity = $this->wf->getEntity('my_wireframe');
+        $entity = $this->wf->getEntity();
         echo 'place:';
         var_dump($entity->getCurrentPlace());
 
         echo 'visit:';
-        var_dump($this->wf->isValid('my_wireframe', 'visit'));
+        var_dump($this->wf->isValid('visit'));
 
         echo 'write_out:';
-        var_dump($this->wf->isValid('my_wireframe', 'write_out'));
+        var_dump($this->wf->isValid('write_out'));
 
         echo 'submit:';
-        var_dump($this->wf->isValid('my_wireframe', 'submit'));
+        var_dump($this->wf->isValid('submit'));
 
         echo 'rewrite';
-        var_dump($this->wf->isValid('my_wireframe', 'rewrite'));
+        var_dump($this->wf->isValid('rewrite'));
     }
 }

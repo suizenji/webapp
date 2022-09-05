@@ -4,13 +4,13 @@ namespace App\Workflow\Wireframe;
 
 interface WireframeInterface
 {
-    public function getEntity($name);
+    public function getEntity();
 
-    public function setEntity($name, $entity);
+    public function setEntity($entity);
 
-    public function isValid($name, $to);
+    public function isValid($to);
 
-    public function update($name, $to);
+    public function update($to);
 
-    public function reset($name);
+    public function reset();
 }

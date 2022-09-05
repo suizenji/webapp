@@ -3,7 +3,6 @@
 namespace App\Workflow\Wireframe;
 
 use App\Workflow\Entity\WireframeEntity as Entity;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Workflow\Registry;
 use Symfony\Component\Workflow\StateMachine;
@@ -15,37 +14,38 @@ class Wireframe implements WireframeInterface
     public function __construct(
         private Registry $workflows,
         RequestStack $requestStack,
+        private $name,
     ) {
         $this->session = $requestStack->getSession();
     }
 
-    public function getEntity($name): Entity
+    public function getEntity(): Entity
     {
-        return $this->session->get(static::SES_KEY_PREF . $name) ?: new Entity();
+        return $this->session->get(static::SES_KEY_PREF . $this->name) ?: new Entity();
     }
 
-    public function setEntity($name, $entity)
+    public function setEntity($entity)
     {
-        $this->session->set(static::SES_KEY_PREF . $name, $entity);
+        $this->session->set(static::SES_KEY_PREF . $this->name, $entity);
     }
 
-    public function isValid($name, $to)
+    public function isValid($to)
     {
-        $entity = $this->getEntity($name);
-        $sm = $this->workflows->get($entity, $name);
+        $entity = $this->getEntity($this->name);
+        $sm = $this->workflows->get($entity, $this->name);
         return $sm->can($entity, $to);
     }
 
-    public function update($name, $to)
+    public function update($to)
     {
-        $entity = $this->getEntity($name);
-        $sm = $this->workflows->get($entity, $name);
+        $entity = $this->getEntity($this->name);
+        $sm = $this->workflows->get($entity, $this->name);
         $sm->apply($entity, $to);
-        $this->setEntity($name, $entity);
+        $this->setEntity($entity);
     }
 
-    public function reset($name)
+    public function reset()
     {
-        $this->setEntity($name, new Entity());
+        $this->setEntity(new Entity());
     }
 }
