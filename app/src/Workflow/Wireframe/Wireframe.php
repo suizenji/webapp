@@ -4,12 +4,15 @@ namespace App\Workflow\Wireframe;
 
 use App\Workflow\Entity\WireframeEntity as Entity;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Workflow\Registry;
 use Symfony\Component\Workflow\StateMachine;
 
 class Wireframe implements WireframeInterface
 {
     const SES_KEY_PREF = __CLASS__;
+
+    private SessionInterface $session;
 
     public function __construct(
         private Registry $workflows,
