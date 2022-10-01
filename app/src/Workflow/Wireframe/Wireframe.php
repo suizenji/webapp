@@ -17,7 +17,7 @@ class Wireframe implements WireframeInterface
     public function __construct(
         private Registry $workflows,
         RequestStack $requestStack,
-        private $name,
+        private $name = '',
     ) {
         $this->session = $requestStack->getSession();
     }
