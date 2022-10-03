@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArgResolvController extends AbstractController
 {
     #[Route('/arg/resolv', name: 'app_arg_resolv')]
-    public function index(): Response
+    public function index(\StdClass $stdClass): Response
     {
         return $this->render('arg_resolv/index.html.twig', [
             'controller_name' => 'ArgResolvController',

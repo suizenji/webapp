@@ -36,3 +36,7 @@ services:
         arguments:
             $classOrAlias: App\Entity\Member
             $property: email
+
+    App\ArgumentResolver\StdClassValueResolver:
+        tags:
+            - { name: controller.argument_value_resolver, priority: 50 }
