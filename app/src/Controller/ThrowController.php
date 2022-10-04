@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Exception\AppException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,8 +12,6 @@ class ThrowController extends AbstractController
     #[Route('/throw', name: 'app_throw')]
     public function index(): Response
     {
-        return $this->render('throw/index.html.twig', [
-            'controller_name' => 'ThrowController',
-        ]);
+        throw new AppException('throw!!');
     }
 }
