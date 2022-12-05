@@ -40,3 +40,8 @@ services:
     App\ArgumentResolver\StdClassValueResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 50 }
+
+
+    App\ArgumentResolver\AppArgumentResolver:
+        arguments:
+            $resolver: "@argument_resolver"
