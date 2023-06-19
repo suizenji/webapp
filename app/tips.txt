@@ -11,3 +11,5 @@ monolog.logger:
         $handlers: []
         $processors: []
 
+App\Translator\AppTranslator:
+    decorates: translator
