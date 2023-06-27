@@ -13,3 +13,17 @@ monolog.logger:
 
 App\Translator\AppTranslator:
     decorates: translator
+
+{
+        $kernel = $container->get('kernel');
+
+        $request = Request::createFromGlobals();
+        $request->setSession(new Session(new MockArraySessionStorage()));
+
+        $type = HttpKernelInterface::MAIN_REQUEST;
+
+        $event = new ExceptionEvent($kernel, $request, $type, $exception);
+
+        $dispatcher = $container->get(EventDispatcherInterface::class);
+        $dispatcher->dispatch($event, KernelEvents::EXCEPTION);
+}
