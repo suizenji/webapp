@@ -27,3 +27,7 @@ App\Translator\AppTranslator:
         $dispatcher = $container->get(EventDispatcherInterface::class);
         $dispatcher->dispatch($event, KernelEvents::EXCEPTION);
 }
+
+set func
+https://stackoverflow.com/questions/56992865/how-to-use-simple-function-in-symfony-4
+
